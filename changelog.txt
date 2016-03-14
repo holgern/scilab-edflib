@@ -1,0 +1,52 @@
+Version 0.3.1
+- new edflib version V1.11
+Version 0.3.0
+- bugfix for windows
+- all gateway c-function are ported to the new scilab-api
+Version 0.2.9
+- new edflib version V1.10
+- help files have been improved
+- accuracy problems with the edf format were fixed
+Version 0.2.8
+- some bug fixes
+- edf_is_file_used returns if a files is opened at the moment
+- edf_get_open_files shows the number of opened files
+- all edf_get_* functions can be used with a filename or with edf_header from edfopen_file_readonly
+- help files improved
+- new copy function: edf_copy_annotation, edf_copy_signal_data, edf_copy_file_header, edf_copy_signal_header
+- edf_plot_signals plots signals from a edf/bdf file
+
+Version 0.2.7
+-  makes it available for Scilab 5.4 by the flag __USE_DEPRECATED_STACK_FUNCTIONS__
+
+Version 0.2.6
+- new edflib version V1.08
+
+Version 0.2.5
+- edf_get_samplefrequency was giving wrong results
+- the output of edf_header("datarecord_duration") is in seconds
+- improved error messages for edfopen_file_readonly and edfopen_file_writeonly
+- some typos in the help - files are removed (thanks to Teunis van Beelen)
+
+Version 0.2.4
+- new edflib version V1.07	
+
+Version 0.2.3
+- new functions: edf_set_record_duration
+- new edflib version V1.05
+
+Version 0.2.2
+- new functions: edfseek, edftell, edfrewind, edfopen_file_readonly
+- the parameter edfsignal starts from 1! E.g. read the data of the first signal edfread_samples (path,1)
+
+Version 0.2.1
+- new version of edflib.c
+- macro edf_get_timevector
+
+Version 0.2.0
+- help files
+- new macros
+- change of function names
+
+Version 0.1.0
+- new fuctions

@@ -1,0 +1,79 @@
+// Copyright (C) 2012 - Michael Baudin
+// Copyright (C) 2010 - DIGITEO - Michael Baudin
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+function edflib = edflib_load()
+
+    TOOLBOX_NAME = "edflib"
+    TOOLBOX_TITLE = "edflib - Toolbox for reading and writing edf/ bdf files"
+
+    //mprintf("Start %s\n",TOOLBOX_TITLE);
+    mprintf("Start edflib toolbox - (0.3.0)\n");
+
+    etc_tlbx  = get_absolute_file_path(TOOLBOX_NAME+".start");
+    etc_tlbx  = getshortpathname(etc_tlbx);
+    root_tlbx = strncpy( etc_tlbx, length(etc_tlbx)-length("\etc\") );
+
+    //Load  functions library
+    // =============================================================================
+
+    mprintf("\tLoad macros\n");
+    pathmacros = pathconvert( root_tlbx ) + "macros" + filesep();
+    edflib  = lib(pathmacros);
+    clear pathmacros;
+
+    // load gateways
+    // =============================================================================
+
+    if ( %t ) then
+        mprintf("\tLoad gateways\n");
+        ilib_verbose(0);
+        exec( pathconvert(root_tlbx+"/sci_gateway/loader_gateway.sce",%f));
+    end
+
+    // Load and add help chapter
+    // =============================================================================
+
+    if ( %t ) then
+        if or(getscilabmode() == ["NW";"STD"]) then
+            mprintf("\tLoad help\n");
+            path_addchapter = pathconvert(root_tlbx+"/jar");
+            if ( isdir(path_addchapter) <> [] ) then
+                add_help_chapter(TOOLBOX_TITLE, path_addchapter, %F);
+            end
+        end
+    end
+
+    // add demos
+    // =============================================================================
+
+    if ( %t ) then
+        if or(getscilabmode() == ["NW";"STD"]) then
+            mprintf("\tLoad demos\n");
+            demoscript = TOOLBOX_NAME + ".dem.gateway.sce"
+            pathdemos = pathconvert(fullfile(root_tlbx,"demos",demoscript),%f,%t);
+            add_demo(TOOLBOX_TITLE,pathdemos);
+        end
+    end
+
+
+    // ====================================================================
+    // A Welcome message.
+
+    //mprintf("\tType ""help hypt_overview"" for quick start.\n");
+    //mprintf("\tType ""demo_gui()"" and search for "+TOOLBOX_TITLE+" for Demonstrations.\n");
+
+endfunction 
+
+if ( isdef("edflib") ) then
+    warning("	Library is already loaded (""ulink(); clear edflib;"" to unload.)");
+    return;
+end
+
+edflib = edflib_load ();
+clear edflib_load;
