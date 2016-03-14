@@ -1,0 +1,12 @@
+dist: trusty
+language: cpp
+os:
+  - linux
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y scilab
+  - scilab -version; true
+script:
+  - scilab -nwni -e 'result = exec("builder.sce", "errcatch"); exit(result)'
+  - scilab -nwni -e 'result = exec("loader.sce", "errcatch"); exec("runtests.sce", "errcatch"); exit(result)'
+  - scilab -nwni -e 'result = exec("cleaner.sce", "errcatch"); exit(result)'
